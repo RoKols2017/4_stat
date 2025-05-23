@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Динамика по месяцам{% endblock %}
+{% block content %}
+<h1 class="mb-4">Динамика по месяцам</h1>
+<div id="monthly_revenue_chart" class="mb-4"></div>
+<div id="monthly_quantity_chart" class="mb-4"></div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{{ months|json_script:"months-data" }}
+{{ revenues|json_script:"revenues-data" }}
+{{ quantities|json_script:"quantities-data" }}
+<script>
+    var months = JSON.parse(document.getElementById('months-data').textContent);
+    var revenues = JSON.parse(document.getElementById('revenues-data').textContent);
+    var quantities = JSON.parse(document.getElementById('quantities-data').textContent);
+    Plotly.newPlot('monthly_revenue_chart', [{
+        x: months,
+        y: revenues,
+        type: 'bar',
+        name: 'Выручка'
+    }], {title: 'Выручка по месяцам'});
+    Plotly.newPlot('monthly_quantity_chart', [{
+        x: months,
+        y: quantities,
+        type: 'bar',
+        name: 'Продажи'
+    }], {title: 'Объем продаж по месяцам'});
+</script>
+<a class="btn btn-secondary" href="/">Назад</a>
+{% endblock %} 

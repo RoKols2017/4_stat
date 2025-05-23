@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Средний чек{% endblock %}
+{% block content %}
+<h1 class="mb-4">Средний чек</h1>
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">{{ avg|floatformat:2 }} ₽</h3>
+    <p class="card-text">Средний чек по всем продажам</p>
+  </div>
+</div>
+<a class="btn btn-secondary mt-3" href="/">Назад</a>
+{% endblock %} 

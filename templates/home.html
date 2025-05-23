@@ -10,6 +10,12 @@
                 <a href="{% url 'sales:upload_csv' %}" class="list-group-item list-group-item-action">Загрузка CSV-файла</a>
                 <a href="{% url 'sales:export_report' %}" class="list-group-item list-group-item-action">Экспорт отчёта</a>
                 <a href="/admin/" class="list-group-item list-group-item-action">Админка Django</a>
+                <a href="{% url 'sales:top_products' %}" class="list-group-item list-group-item-action">Топ-5 товаров по выручке</a>
+                <a href="{% url 'sales:top_regions' %}" class="list-group-item list-group-item-action">Топ-5 регионов по выручке</a>
+                <a href="{% url 'sales:avg_receipt' %}" class="list-group-item list-group-item-action">Средний чек</a>
+                <a href="{% url 'sales:monthly_dynamics' %}" class="list-group-item list-group-item-action">Динамика по месяцам</a>
+                <a href="{% url 'sales:pie_products' %}" class="list-group-item list-group-item-action">Доля товаров в выручке</a>
+                <a href="{% url 'sales:pie_regions' %}" class="list-group-item list-group-item-action">Доля регионов в выручке</a>
             </div>
         </div>
     </div>

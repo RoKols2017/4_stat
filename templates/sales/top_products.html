@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Топ-5 товаров по выручке{% endblock %}
+{% block content %}
+<h1 class="mb-4">Топ-5 товаров по выручке</h1>
+<table class="table table-bordered table-striped">
+    <thead><tr><th>Товар</th><th>Выручка</th></tr></thead>
+    <tbody>
+    {% for row in top %}
+        <tr><td>{{ row.product }}</td><td>{{ row.revenue }}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+<a class="btn btn-secondary" href="/">Назад</a>
+{% endblock %} 

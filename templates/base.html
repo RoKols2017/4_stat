@@ -13,7 +13,18 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" href="/">Панель управления</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'sales:dashboard' %}">Аналитика</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="analyticsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Аналитика</a>
+          <ul class="dropdown-menu" aria-labelledby="analyticsDropdown">
+            <li><a class="dropdown-item" href="{% url 'sales:dashboard' %}">Общая аналитика</a></li>
+            <li><a class="dropdown-item" href="{% url 'sales:top_products' %}">Топ-5 товаров</a></li>
+            <li><a class="dropdown-item" href="{% url 'sales:top_regions' %}">Топ-5 регионов</a></li>
+            <li><a class="dropdown-item" href="{% url 'sales:avg_receipt' %}">Средний чек</a></li>
+            <li><a class="dropdown-item" href="{% url 'sales:monthly_dynamics' %}">Динамика по месяцам</a></li>
+            <li><a class="dropdown-item" href="{% url 'sales:pie_products' %}">Доля товаров</a></li>
+            <li><a class="dropdown-item" href="{% url 'sales:pie_regions' %}">Доля регионов</a></li>
+          </ul>
+        </li>
         <li class="nav-item"><a class="nav-link" href="{% url 'sales:upload_csv' %}">Загрузка данных</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'sales:export_report' %}">Экспорт отчёта</a></li>
         <li class="nav-item"><a class="nav-link" href="/admin/">Админка</a></li>

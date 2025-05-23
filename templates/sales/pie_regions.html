@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Доля регионов в выручке{% endblock %}
+{% block content %}
+<h1 class="mb-4">Доля регионов в выручке</h1>
+<div id="pie_regions_chart" class="mb-4"></div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{{ labels|json_script:"labels-data" }}
+{{ values|json_script:"values-data" }}
+<script>
+    var labels = JSON.parse(document.getElementById('labels-data').textContent);
+    var values = JSON.parse(document.getElementById('values-data').textContent);
+    Plotly.newPlot('pie_regions_chart', [{
+        labels: labels,
+        values: values,
+        type: 'pie',
+        textinfo: 'label+percent',
+        insidetextorientation: 'radial'
+    }], {title: 'Доля регионов в выручке'});
+</script>
+<a class="btn btn-secondary" href="/">Назад</a>
+{% endblock %} 
