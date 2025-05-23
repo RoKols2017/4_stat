@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Панель управления{% endblock %}
+{% block content %}
+<div class="text-center mt-5">
+    <h1 class="mb-4">Система анализа продаж</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="list-group">
+                <a href="{% url 'sales:dashboard' %}" class="list-group-item list-group-item-action">Аналитика продаж</a>
+                <a href="{% url 'sales:upload_csv' %}" class="list-group-item list-group-item-action">Загрузка CSV-файла</a>
+                <a href="{% url 'sales:export_report' %}" class="list-group-item list-group-item-action">Экспорт отчёта</a>
+                <a href="/admin/" class="list-group-item list-group-item-action">Админка Django</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

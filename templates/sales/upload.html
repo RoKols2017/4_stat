@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Загрузка данных о продажах{% endblock %}
+{% block content %}
+<h1 class="mb-4">Загрузка CSV-файла</h1>
+{% if error %}<div class="alert alert-danger">Ошибка: {{ error }}</div>{% endif %}
+<form method="post" enctype="multipart/form-data" class="mb-3">
+    {% csrf_token %}
+    <div class="mb-3">
+        <input type="file" class="form-control" name="file" accept=".csv" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Загрузить</button>
+</form>
+<a class="btn btn-secondary" href="{% url 'sales:dashboard' %}">Перейти к аналитике</a>
+{% endblock %} 

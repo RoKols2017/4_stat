@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}Аналитика продаж{% endblock %}
+{% block content %}
+<h1 class="mb-4">Дашборд продаж</h1>
+<a href="{% url 'sales:upload_csv' %}">Загрузить новые данные</a>
+<h2>Фильтры</h2>
+<form method="get" class="row g-3 align-items-end mb-3">
+    <div class="col-auto">
+        <label class="form-label">Дата с:</label>
+        <input type="date" class="form-control" name="date_from" value="{{ date_from }}">
+    </div>
+    <div class="col-auto">
+        <label class="form-label">по:</label>
+        <input type="date" class="form-control" name="date_to" value="{{ date_to }}">
+    </div>
+    <div class="col-auto">
+        <label class="form-label">Регион:</label>
+        <select class="form-select" name="region">
+            <option value="">Все</option>
+            {% for r in all_regions %}
+                <option value="{{ r }}" {% if region == r %}selected{% endif %}>{{ r }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-auto">
+        <label class="form-label">Товар:</label>
+        <select class="form-select" name="product">
+            <option value="">Все</option>
+            {% for p in all_products %}
+                <option value="{{ p }}" {% if product == p %}selected{% endif %}>{{ p }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Применить</button>
+        <a href="?" class="btn btn-secondary">Сбросить</a>
+    </div>
+</form>
+<a class="btn btn-success mb-3" href="{% url 'sales:export_report' %}?date_from={{ date_from }}&date_to={{ date_to }}&region={{ region }}&product={{ product }}">Экспортировать отчёт</a>
+<h2>Таблица продаж</h2>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Дата</th><th>Регион</th><th>Товар</th><th>Количество</th><th>Выручка</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in records %}
+        <tr>
+            <td>{{ r.date }}</td><td>{{ r.region }}</td><td>{{ r.product }}</td><td>{{ r.quantity }}</td><td>{{ r.revenue }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h2>Ключевые метрики</h2>
+<ul class="list-group mb-4">
+    <li class="list-group-item">Суммарная выручка: <b>{{ total_revenue }}</b></li>
+    <li class="list-group-item">Количество продаж: <b>{{ total_quantity }}</b></li>
+</ul>
+<h2>Динамика продаж</h2>
+<div id="revenue_chart" class="mb-4"></div>
+<div id="quantity_chart" class="mb-4"></div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{{ dates|json_script:"dates-data" }}
+{{ revenues|json_script:"revenues-data" }}
+{{ quantities|json_script:"quantities-data" }}
+<script>
+    var dates = JSON.parse(document.getElementById('dates-data').textContent);
+    var revenues = JSON.parse(document.getElementById('revenues-data').textContent);
+    var quantities = JSON.parse(document.getElementById('quantities-data').textContent);
+    Plotly.newPlot('revenue_chart', [{
+        x: dates,
+        y: revenues,
+        type: 'scatter',
+        mode: 'lines+markers',
+        name: 'Выручка'
+    }], {title: 'Динамика выручки по датам'});
+    Plotly.newPlot('quantity_chart', [{
+        x: dates,
+        y: quantities,
+        type: 'scatter',
+        mode: 'lines+markers',
+        name: 'Продажи'
+    }], {title: 'Динамика объёма продаж по датам'});
+</script>
+{% endblock %} 
